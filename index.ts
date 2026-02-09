@@ -7,7 +7,8 @@ import jwt from 'jsonwebtoken'; // for creating session tokens
 import nodemailer from 'nodemailer';
 import { getUserFromToken } from './auth';
 
-const JWT_SECRET = 'supersecretkey'; // in real project we use .env file
+const JWT_SECRET = process.env.JWT_SECRET!;
+const port = Number(process.env.PORT) || 3000;
 
 // Health check route
 const app = new Hono();
@@ -164,7 +165,7 @@ app.post('/api/send-email', async (c) => {
 
 serve({
     fetch: app.fetch,
-    port:3000,
+    port,
 });
 
-console.log('Server running on http://localhost:3000');
+console.log(`Server running on port ${port}`);
