@@ -126,16 +126,21 @@ app.post('/api/send-email', async (c) => {
         }
 
         // create a test SMTP transport using Ethereal
-        let testAccount = await nodemailer.createTestAccount();
-        let transporter = nodemailer.createTransport({
-            host: testAccount.smtp.host,
-            port: testAccount.smtp.port,
-            secure: testAccount.smtp.secure,
-            auth: {
-                user: testAccount.user,
-                pass: testAccount.pass
-            }
-        });
+        // let testAccount = await nodemailer.createTestAccount();
+        // let transporter = nodemailer.createTransport({
+        //     host: testAccount.smtp.host,
+        //     port: testAccount.smtp.port,
+        //     secure: testAccount.smtp.secure,
+        //     auth: {
+        //         user: testAccount.user,
+        //         pass: testAccount.pass
+        //     }
+        // });
+
+        const transporter = nodemailer.createTransport({
+  jsonTransport: true
+});
+
 
         // send email
         let info = await transporter.sendMail({
